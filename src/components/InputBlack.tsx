@@ -8,15 +8,22 @@ interface InputBlackType extends ComponentPropsWithRef<"input"> {
 const InputBlack = forwardRef<HTMLInputElement, InputBlackType>(
   ({ isNeededIcon = false, ...props }, ref) => {
     const [activeBorder, setActiveBorder] = useState(false);
+    const [showIcon, setShowIcon] = useState(true);
     return (
       <div style={{ position: "relative" }}>
         <InputText
           {...props}
           ref={ref}
-          onFocus={() => setActiveBorder(true)}
-          onBlur={() => setActiveBorder(false)}
+          onFocus={() => {
+            setShowIcon(false);
+            setActiveBorder(true);
+          }}
+          onBlur={() => {
+            setShowIcon(true);
+            setActiveBorder(false);
+          }}
         />
-        {isNeededIcon && (
+        {isNeededIcon && showIcon && (
           <Icon src="img/loupe.svg" alt="img" style={{ cursor: "default" }} />
         )}
         <InputBorderBottom

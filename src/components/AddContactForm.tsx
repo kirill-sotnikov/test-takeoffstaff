@@ -47,6 +47,7 @@ const AddContactForm = memo(
     }, [id]);
 
     useEffect(() => {
+      NameInputValue.current?.focus();
       const onEnter = (event: KeyboardEvent) => {
         if (event.key === "Enter") {
           console.log("ENTER");
