@@ -1,7 +1,7 @@
 const debounceWrapper = () => {
   let timeoutId: ReturnType<typeof setTimeout>;
 
-  const debounce = (value: string, doSomeFn: () => void) => {
+  const debounce = (doSomeFn: () => void) => {
     if (timeoutId) {
       clearTimeout(timeoutId);
     }

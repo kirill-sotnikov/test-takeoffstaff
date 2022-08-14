@@ -8,6 +8,7 @@ const Login = memo(() => {
   const login = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const [isLinkTo, setIsLinkTo] = useState(false);
+  const [userNotFound, setUserNotFound] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const routeChange = useCallback(() => {
@@ -33,9 +34,11 @@ const Login = memo(() => {
               );
               routeChange();
             } else {
+              setUserNotFound(true);
               setIsLinkTo(false);
             }
-          });
+          })
+          .catch(() => setUserNotFound(true));
       }
     },
     [routeChange]
@@ -56,6 +59,11 @@ const Login = memo(() => {
           style={{ marginTop: 12 }}
           ref={password}
         />
+        {userNotFound && (
+          <LoginUserNotFoundText>
+            Неверный логин или пароль
+          </LoginUserNotFoundText>
+        )}
 
         <Link to={isLinkTo ? "/contacts" : "/"}>
           <LoginButton
@@ -120,4 +128,15 @@ const LoginForm = styled.form`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+`;
+
+const LoginUserNotFoundText = styled.p`
+  text-align: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 15px;
+  margin-top: 20px;
+  color: #ee2525;
 `;

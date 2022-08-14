@@ -37,7 +37,7 @@ const Contacts = memo(() => {
           placeholder="Search by tel or name"
           isNeededIcon={true}
           onChange={(event) => {
-            debounce(event.target.value, () => {
+            debounce(() => {
               search.setSearchValue(event.target.value);
             });
           }}
